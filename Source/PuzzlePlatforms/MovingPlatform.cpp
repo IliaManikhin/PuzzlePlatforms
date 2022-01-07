@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Create by Ilia Manikhin in 2022
 
 
 #include "MovingPlatform.h"
