@@ -2,39 +2,35 @@
 
 
 #include "InGameMenu.h"
+#include "Components/Button.h"
 
 bool UInGameMenu::Initialize()
 {
 	bool Success = Super::Initialize();
 	if (!Success) return false;
 
-	if (!ensure(CancelInGameMenuButton != nullptr)) return false;
-	//CancelInGameMenu->OnClicked.AddDynamic(this, &UInGameMenu::CancelInGameMenu);  // todo method
+	if (!ensure(CancelButton != nullptr)) return false;
+	CancelButton->OnClicked.AddDynamic(this, &UInGameMenu::CancelPressed);
+
+	if (!ensure(QuitButton != nullptr)) return false;
+	QuitButton->OnClicked.AddDynamic(this, &UInGameMenu::QuitPressed);
 
 	return true;
 }
 
-void UInGameMenu::CancelInGameMenu()
+void UInGameMenu::CancelPressed()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Cancel in game menu called"));
+	Teardown();
 
 }
 
-void UInGameMenu::Setup()
+void UInGameMenu::QuitPressed()
 {
-	this->AddToViewport();
-
-	UWorld* World = GetWorld();
-	if (!ensure(World != nullptr)) return;
-
-	APlayerController* PlayerController = World->GetFirstPlayerController();
-	if (!ensure(PlayerController != nullptr)) return;
-
-	FInputModeUIOnly InputModeData;
-
-	InputModeData.SetWidgetToFocus(this->TakeWidget());
-	InputModeData.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
-
-	PlayerController->SetInputMode(InputModeData);
-	PlayerController->bShowMouseCursor = true;
+	if (MenuInterface != nullptr)
+	{
+		Teardown();
+		MenuInterface->LoadMainMenu();
+	}
 }
+
+
