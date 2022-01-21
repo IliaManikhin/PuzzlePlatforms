@@ -28,4 +28,6 @@ public:
 
 	virtual void LoadMainMenu() = 0;
 
+	
+
 };
