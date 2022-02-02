@@ -7,6 +7,18 @@
 
 #include "MainMenu.generated.h"
 
+USTRUCT()
+struct FServerData
+{
+	GENERATED_BODY()
+
+	FString Name; //Name of the server
+	uint16 CurentPlayers; 
+	uint16 MaxPlayers; 
+	FString HostUserName;
+	
+};
+
 /**
  * 
  */
@@ -18,7 +30,8 @@ class PUZZLEPLATFORMS_API UMainMenu : public UMenuWidget
 public:
 	UMainMenu(const FObjectInitializer& ObjectInitializer);
 
-	void SetServerList(TArray<FString> ServerNames);
+	//This method populate the struct 
+	void SetServerList(TArray<FServerData> ServerNames);
 
 	void SelectIndex(uint32 Index);
 
