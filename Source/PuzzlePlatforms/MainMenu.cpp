@@ -36,7 +36,7 @@ bool UMainMenu::Initialize()
 	CancelHostMenuButton->OnClicked.AddDynamic(this, &UMainMenu::OpenMainMenu);
 
 	if (!ensure(ConfirmHostMenuButton != nullptr)) return false;
-	ConfirmHostMenuButton->OnClicked.AddDynamic(this, &UMainMenu::JoinServer);
+	ConfirmHostMenuButton->OnClicked.AddDynamic(this, &UMainMenu::HostServer);
 
 	if (!ensure(ConfirmJoinMenuButton != nullptr)) return false;
 	ConfirmJoinMenuButton->OnClicked.AddDynamic(this, &UMainMenu::JoinServer);
@@ -100,7 +100,7 @@ void UMainMenu::UpdateChildren()
 {
 	for (int32 i = 0; i < ServerList->GetChildrenCount(); ++i)
 	{
-		auto Row = Cast<UServerRow>(ServerList->GetChildAt(i));
+		UServerRow* Row = Cast<UServerRow>(ServerList->GetChildAt(i));
 		if (Row != nullptr)
 		{
 			Row->Selected = (SelectedIndex.IsSet() && SelectedIndex.GetValue() == i);
