@@ -41,6 +41,8 @@ public:
 
 		void RefreshServerList() override;
 
+		void StartSession();
+
 
 private:
 	TSubclassOf <class UUserWidget> MenuClass;
