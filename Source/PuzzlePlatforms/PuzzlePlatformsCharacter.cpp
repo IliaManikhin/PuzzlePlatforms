@@ -1,4 +1,6 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
+// Create by Ilia Manikhin in 2022
+
+#include "Grabber.h"
 
 #include "PuzzlePlatformsCharacter.h"
 #include "HeadMountedDisplayFunctionLibrary.h"
@@ -9,11 +11,18 @@
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
 
+
+#define OUT
+
 //////////////////////////////////////////////////////////////////////////
 // APuzzlePlatformsCharacter
 
 APuzzlePlatformsCharacter::APuzzlePlatformsCharacter()
 {
+	PrimaryActorTick.bCanEverTick = true;
+
+	
+
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
 
@@ -72,21 +81,25 @@ void APuzzlePlatformsCharacter::SetupPlayerInputComponent(class UInputComponent*
 	PlayerInputComponent->BindTouch(IE_Pressed, this, &APuzzlePlatformsCharacter::TouchStarted);
 	PlayerInputComponent->BindTouch(IE_Released, this, &APuzzlePlatformsCharacter::TouchStopped);
 
-	// VR headset functionality
-	PlayerInputComponent->BindAction("ResetVR", IE_Pressed, this, &APuzzlePlatformsCharacter::OnResetVR);
+	//PlayerInputComponent->BindAction("Grab", IE_Pressed, this, &APuzzlePlatformsCharacter::Grab);
+	//PlayerInputComponent->BindAction("Grab", IE_Released, this, &APuzzlePlatformsCharacter::Release);
 }
 
-
-void APuzzlePlatformsCharacter::OnResetVR()
+void APuzzlePlatformsCharacter::BeginPlay()
 {
-	// If PuzzlePlatforms is added to a project via 'Add Feature' in the Unreal Editor the dependency on HeadMountedDisplay in PuzzlePlatforms.Build.cs is not automatically propagated
-	// and a linker error will result.
-	// You will need to either:
-	//		Add "HeadMountedDisplay" to [YourProject].Build.cs PublicDependencyModuleNames in order to build successfully (appropriate if supporting VR).
-	// or:
-	//		Comment or delete the call to ResetOrientationAndPosition below (appropriate if not supporting VR)
-	UHeadMountedDisplayFunctionLibrary::ResetOrientationAndPosition();
+	Super::BeginPlay();
+
+	
 }
+
+
+void APuzzlePlatformsCharacter::Tick(float DeltaSeconds)
+{
+	Super::Tick(DeltaSeconds);
+
+}
+
+
 
 void APuzzlePlatformsCharacter::TouchStarted(ETouchIndex::Type FingerIndex, FVector Location)
 {
@@ -138,3 +151,21 @@ void APuzzlePlatformsCharacter::MoveRight(float Value)
 		AddMovementInput(Direction, Value);
 	}
 }
+
+//void APuzzlePlatformsCharacter::Grab()
+//{
+//	
+//	if (Grabber) {
+//		UE_LOG(LogTemp, Error, TEXT("grab called in character"));
+//
+//		Grabber->Grab();
+//	}
+//}
+//
+//void APuzzlePlatformsCharacter::Release()
+//{
+//	if (Grabber == nullptr) { return; }
+//
+//	Grabber->Release();
+//}
+

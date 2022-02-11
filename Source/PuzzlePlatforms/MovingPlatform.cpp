@@ -49,6 +49,8 @@ void AMovingPlatform::Tick(float DeltaSeconds)
 		}
 	}
 
+
+
 	
 }
 

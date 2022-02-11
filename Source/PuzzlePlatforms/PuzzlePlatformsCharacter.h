@@ -1,9 +1,10 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
+// Create by Ilia Manikhin in 2022
 
 #pragma once
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+
 #include "PuzzlePlatformsCharacter.generated.h"
 
 UCLASS(config=Game)
@@ -29,10 +30,12 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
 	float BaseLookUpRate;
 
-protected:
 
-	/** Resets HMD orientation in VR. */
-	void OnResetVR();
+
+protected:
+	virtual void Tick(float DeltaSeconds) override;
+	virtual void BeginPlay() override;
+
 
 	/** Called for forwards/backward input */
 	void MoveForward(float Value);
@@ -68,5 +71,12 @@ public:
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+
+private:
+	void Grab();
+	void Release();
+
+	class UGrabber* Grabber = nullptr;
+	
 };
 
