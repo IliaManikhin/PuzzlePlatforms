@@ -143,17 +143,6 @@ FVector UGrabber::GetReachLineEnd()
 	//Add a ray cast 
 	FVector LineTraceEnd = PlayerViewPointLocation + PlayerViewPointRotation.Vector() * Reach;
 
-	DrawDebugLine(
-		GetWorld(),
-		PlayerViewPointLocation,
-		LineTraceEnd,
-		FColor(255, 0, 0),
-		false,
-		0,
-		0,
-		10.f
-
-	);
 
 	UE_LOG(LogTemp, Warning, TEXT("Player view point location : %s and position %s"), *PlayerViewPointLocation.ToString(), *PlayerViewPointRotation.ToString());
 
